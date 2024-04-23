@@ -1,5 +1,6 @@
 #include <iostream>
 #include "GameState.h"
+#include "GameLogic.h"
 
 using namespace std;
 
