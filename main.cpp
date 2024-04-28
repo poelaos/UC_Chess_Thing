@@ -22,15 +22,18 @@ int main(){
                 //initiate game with weak computer
                 pve();
                 system("clear");
+                showMenu();
                 break;
             case 3:
                 // initiate game with sophisticated computer
                 system("clear");
+                showMenu();
                 break;
             case 4:
                 //display scoreboard
                 system("clear");
                 showScoreboard();
+                showMenu();
                 break;
             case 5:
                 //clear scoreboard
