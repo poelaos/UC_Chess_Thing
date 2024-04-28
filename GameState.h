@@ -2,6 +2,35 @@
 #define GAME_STATE_H
 
 #include <iostream>
+#include <string>
+
+#define RESET "\033[0m"
+#define BOLD "\033[1m"
+#define BLUE "\033[94m"
+#define RED "\033[91m"
+ 
+std::string bold(std::string letter) {
+    std::string result = BOLD;
+    result += letter;
+    result += RESET;
+    return result;
+}
+
+
+std::string blue(std::string letter) {
+    std::string result = BLUE;
+    result += letter;
+    result += RESET;
+    return result;
+}
+
+std::string red(std::string letter) {
+    std::string result = RED;
+    result += letter;
+    result += RESET;
+    return result;
+}
+
 
 struct Vec{
     int x;
@@ -237,15 +266,17 @@ std::ostream& operator<<(std::ostream& os, const GameState& state){
         os << "--- ";
     }
     os << std::endl;
-    for (int i = 0; i < state.size; i++){
+   for (int i = 0; i < state.size; i++){
         os << i << " ";
         for (int j = 0; j < state.size; j++){
-            char c = ' ';
+            std::string c = " ";
             if (state.grid[i][j] == 0){
                 c = 'X';
+                c = bold(red(c));
             }
             else if (state.grid[i][j] == 1){
                 c = 'O';
+                c = bold(blue(c));
             }
             os << "| " << c << " ";
             if (j == state.size - 1) os << "|";
