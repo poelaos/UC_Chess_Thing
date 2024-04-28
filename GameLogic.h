@@ -104,7 +104,7 @@ void pvp() {
         if (game.hasWon(0)) {
             char winnerSymbol = 'X';
             std::string winnerName;
-            std::cout << bold(red("Player 1 wins!")) << std::endl;
+            std::cout << bold(red("Player X wins!")) << std::endl;
             std::cout << "Enter your name: ";
             std::cin >> winnerName;
             Stats winner(winnerName, game.turnCount, winnerSymbol);
@@ -137,7 +137,7 @@ void pvp() {
             char winnerSymbol = 'O';
             std::string winnerName;
             std::cout << game << std::endl;
-            std::cout << bold(blue("Player 2 wins!")) << std::endl;
+            std::cout << bold(blue("Player O wins!")) << std::endl;
             std::cout << "Enter your name: ";
             std::cin >> winnerName;
             Stats winner(winnerName, game.turnCount, winnerSymbol);
@@ -198,7 +198,13 @@ void ticTacToe_AI (int tttInteger) {
 
         // Determine the outcome of the game
         if (game.hasWon(0)) {
-            std::cout << "Player X has won!" << std::endl;
+            char winnerSymbol = 'X';
+            std::string winnerName;
+            std::cout << bold(red("Player X has won!")) << std::endl;
+            std::cout << "Enter your name: ";
+            std::cin >> winnerName;
+            Stats winner(winnerName, game.turnCount, winnerSymbol);
+            saveStats(winner);
         } else if (game.hasWon(1)) {
             std::cout << "Player O has won!" << std::endl;
         } else {
@@ -211,39 +217,9 @@ void ticTacToe_AI (int tttInteger) {
        
     }
 }
-void pve{
-    ticTacToe_Ai(0);
+void pve(){
+    ticTacToe_AI(0);
 }
 
-
-void menuPrinter (int remote) {
-    if (remote == 0) {
-        std::cout << "Welcome to Tic Tae Toe! Enter an option to begin." << std::endl;
-        std::cout << "1. Singleplayer" << std::endl;
-        std::cout << "2. Multiplayer" << std::endl;
-        std::cout << "3. Quit" << std::endl;
-    }
-    if (remote == 1) {
-        ticTacToe_AI(0)
-    }
-
-    if (remote == 2) {
-        ticTacToe_Multi(0);
-    }
-}
-
-
-
-void ultimateGameFunction (int programState) {
-    while (programState != 3) {
-        std::system("clear");
-        menuPrinter(0);
-        std::cin >> programState;
-        if (programState == 1 || programState == 2) {
-            std::system("clear");
-            menuPrinter(programState);
-        }
-    }
-}
 
 #endif
