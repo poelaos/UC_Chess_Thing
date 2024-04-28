@@ -20,6 +20,7 @@ int main(){
                 break;
             case 2:
                 //initiate game with weak computer
+                pve();
                 system("clear");
                 break;
             case 3:
