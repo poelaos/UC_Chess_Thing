@@ -1,4 +1,7 @@
 #include <iostream>
+#include <chrono>
+#include <unistd.h>
+
 #include "GameState.h"
 #include "GameLogic.h"
 
@@ -33,7 +36,6 @@ int main(){
                 //display scoreboard
                 system("clear");
                 showScoreboard();
-                showMenu();
                 break;
             case 5:
                 //clear scoreboard
@@ -54,7 +56,7 @@ int main(){
                 showMenu();
                 break;
             default:    
-                std::cout << "Choose an option 1-4." << std::endl;
+                std::cout << "Choose an option 1-6." << std::endl;
         }
     } while (menuSelect !=6);
    
