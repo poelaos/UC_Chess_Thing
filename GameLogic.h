@@ -154,41 +154,63 @@ void pvp() {
 }
 
 void ticTacToe_AI (int tttInteger) {
-    int gameInteger;
-    gameInteger = tttInteger;
+    int gameInteger = tttInteger;
     while (gameInteger == 0) {
         GameState game;
-        int input1 = -1;
-        int input2 = -1;
+        int input1, input2;
         bool validMove;
 
-        while (game.done == false) {
-            validMove = true;
-            std::cin >> input1;
-            std::cin >> input2;
-            if (game.play(input1,input2) == false) {
-                validMove == false;
-                
-            }
+        while (!game.done) {
             std::system("clear");
-            std::cout << game << std::endl;
-            if (validMove == false) {
-                std::cout << "Please enter a valid empty space with values between 0 and 2." << std::endl;
+            std::cout << game << std::endl;  
+
+            if (game.currentTurn == 0) {  // Player's turn
+                validMove = false;
+                while (!validMove) {
+                    std::cout << "Your turn. Enter row and column numbers (0-2): ";
+                    if (!(std::cin >> input1 >> input2)) {
+                        std::cin.clear();  // Clear error flag
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  // Ignore wrong input
+                        std::cout << "Invalid input. Please enter numbers only." << std::endl;
+                        continue;  // Continue to the start of the while loop
+                    }
+                    std::cout << "Input received: " << input1 << ", " << input2 << std::endl;  // Debugging output
+                    if (game.play(input1, input2)) {
+                        validMove = true;
+                    } else {
+                        std::cout << "Invalid move. Please try again." << std::endl;
+                    }
+                }
+            } else {  // AI's turn
+                validMove = false;
+                while (!validMove) {
+                    input1 = std::rand() % 3;  
+                    input2 = std::rand() % 3;  
+                    if (game.play(input1, input2)) {
+                        validMove = true;
+                        std::cout << "AI played (" << input1 << ", " << input2 << ")" << std::endl;
+                    }
+                }
             }
         }
-        if (game.hasWon(0) == true) {
+
+        // Determine the outcome of the game
+        if (game.hasWon(0)) {
             std::cout << "Player X has won!" << std::endl;
-        }
-        if (game.hasWon(1) == true) {
+        } else if (game.hasWon(1)) {
             std::cout << "Player O has won!" << std::endl;
-        }
-        if (game.hasWon(0) == false && game.hasWon(1) == false) {
+        } else {
             std::cout << "It's a draw!" << std::endl;
         }
+
         std::cout << "Play again? (y = 0, n = 1)" << std::endl;
         std::cin >> gameInteger;
         std::system("clear");
+       
     }
+}
+void pve{
+    ticTacToe_Ai(0);
 }
 
 
