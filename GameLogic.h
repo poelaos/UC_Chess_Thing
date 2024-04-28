@@ -4,6 +4,8 @@
 
 #include <iostream>
 #include <cstdlib>
+#include <thread>  
+#include <chrono> 
 #include "GameState.h"
 
 #include <fstream>
