@@ -222,7 +222,7 @@ void pve(){
 }
 
 Vec findStrategicMove(GameState& game) {
-    // Priority 1: If AI can win in the next move
+     //Check If AI can win in the next move
     for (int i = 0; i < game.size; i++) {
         for (int j = 0; j < game.size; j++) {
             if (game.grid[i][j] == -1) {
@@ -236,7 +236,7 @@ Vec findStrategicMove(GameState& game) {
         }
     }
 
-    // Priority 2: Block the opponent's winning move
+    // Block the opponent's winning move
     for (int i = 0; i < game.size; i++) {
         for (int j = 0; j < game.size; j++) {
             if (game.grid[i][j] == -1) {
@@ -250,7 +250,7 @@ Vec findStrategicMove(GameState& game) {
         }
     }
 
-    // Priority 3: Take the center if available
+    // Take the center if available
     if (game.size % 2 == 1) { 
         int center = game.size / 2;
         if (game.grid[center][center] == -1) {
@@ -258,7 +258,7 @@ Vec findStrategicMove(GameState& game) {
         }
     }
 
-    // Fallback: Play the first available spot
+    //Play the first available spot
     for (int i = 0; i < game.size; i++) {
         for (int j = 0; j < game.size; j++) {
             if (game.grid[i][j] == -1) {
