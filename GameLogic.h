@@ -221,6 +221,137 @@ void pve(){
     ticTacToe_AI(0);
 }
 
+Vec findStrategicMove(GameState& game) {
+    // Priority 1: If AI can win in the next move
+    for (int i = 0; i < game.size; i++) {
+        for (int j = 0; j < game.size; j++) {
+            if (game.grid[i][j] == -1) {
+                game.grid[i][j] = 1;
+                if (game.hasWon(1)) {
+                    game.grid[i][j] = -1;
+                    return Vec(i, j);
+                }
+                game.grid[i][j] = -1;
+            }
+        }
+    }
+
+    // Priority 2: Block the opponent's winning move
+    for (int i = 0; i < game.size; i++) {
+        for (int j = 0; j < game.size; j++) {
+            if (game.grid[i][j] == -1) {
+                game.grid[i][j] = 0;
+                if (game.hasWon(0)) {
+                    game.grid[i][j] = -1;
+                    return Vec(i, j);
+                }
+                game.grid[i][j] = -1;
+            }
+        }
+    }
+
+    // Priority 3: Take the center if available
+    if (game.size % 2 == 1) { 
+        int center = game.size / 2;
+        if (game.grid[center][center] == -1) {
+            return Vec(center, center);
+        }
+    }
+
+    // Fallback: Play the first available spot
+    for (int i = 0; i < game.size; i++) {
+        for (int j = 0; j < game.size; j++) {
+            if (game.grid[i][j] == -1) {
+                return Vec(i, j);
+            }
+        }
+    }
+
+    return Vec(-1, -1); 
+}
+
+bool isBoardFull(GameState& game) {
+    for (int i = 0; i < game.size; i++) {
+        for (int j = 0; j < game.size; j++) {
+            if (game.grid[i][j] == -1) {
+                return false;
+            }
+        }
+    }
+    return true;
+}
+
+void unbeatable_AI(int tttInteger) {
+    int gameInteger = tttInteger;
+    while (gameInteger == 0) {
+        GameState game;
+        int input1, input2;
+        bool validMove;
+
+        while (!game.done) {
+            std::system("clear");
+            std::cout << game << std::endl;  
+
+            if (game.currentTurn == 0) {  // Player's turn
+                validMove = false;
+                while (!validMove) {
+                    std::cout << "Your turn. Enter row and column numbers (0-" << game.size - 1 << "): ";
+                    if (!(std::cin >> input1 >> input2)) {
+                        std::cin.clear();  
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                        std::cout << "Invalid input. Please enter numbers only." << std::endl;
+                        continue;
+                    }
+                    if (input1 >= 0 && input1 < game.size && input2 >= 0 && input2 < game.size) {
+                        if (game.play(input1, input2)) {
+                            validMove = true;
+                        } else {
+                            std::cout << "Invalid move. This spot is already taken. Please try again." << std::endl;
+                        }
+                    } else {
+                        std::cout << "Input out of bounds. Please try again." << std::endl;
+                    }
+                }
+            }
+
+            
+            if (game.hasWon(0)) {
+                std::cout << "Player X has won!" << std::endl;
+                break;
+            }
+
+            if (isBoardFull(game)) {
+                std::cout << "It's a draw!" << std::endl;
+                break;
+            }
+
+            // AI's turn
+            if (game.currentTurn == 1) {
+                Vec bestMove = findStrategicMove(game);
+                game.play(bestMove.x, bestMove.y);
+                std::cout << "AI plays: " << bestMove << std::endl;
+
+                if (game.hasWon(1)) {
+                    std::cout << "Player O has won!" << std::endl;
+                    break;
+                }
+
+                if (isBoardFull(game)) {
+                    std::cout << "It's a draw!" << std::endl;
+                    break;
+                }
+            }
+        }
+
+        std::cout << "Play again? (y = 0, n = 1)" << std::endl;
+        std::cin >> gameInteger;
+        std::system("clear");
+    }
+}
+
+void pveHard(){
+    unbeatable_AI(0);
+}
 
 #endif
 
