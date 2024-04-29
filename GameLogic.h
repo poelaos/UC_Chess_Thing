@@ -221,7 +221,7 @@ void pve(){
     ticTacToe_AI(0);
 }
 
-Vec findStrategicMove(GameState& game) {
+Vec findBestMove(GameState& game) {
      //Check If AI can win in the next move
     for (int i = 0; i < game.size; i++) {
         for (int j = 0; j < game.size; j++) {
@@ -327,7 +327,7 @@ void unbeatable_AI(int tttInteger) {
 
             // AI's turn
             if (game.currentTurn == 1) {
-                Vec bestMove = findStrategicMove(game);
+                Vec bestMove = findBestMove(game);
                 game.play(bestMove.x, bestMove.y);
                 std::cout << "AI plays: " << bestMove << std::endl;
 
