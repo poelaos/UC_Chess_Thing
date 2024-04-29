@@ -29,6 +29,7 @@ int main(){
                 break;
             case 3:
                 // initiate game with sophisticated computer
+                pveHard();
                 system("clear");
                 showMenu();
                 break;
