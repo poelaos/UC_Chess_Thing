@@ -169,21 +169,25 @@ void ticTacToe_AI (int tttInteger) {
             if (game.currentTurn == 0) {  // Player's turn
                 validMove = false;
                 while (!validMove) {
-                    std::cout << "Your turn. Enter row and column numbers (0-2): ";
+                    std::cout << "Your turn. Enter row and column numbers (0-" << game.size - 1 << "): ";
                     if (!(std::cin >> input1 >> input2)) {
                         std::cin.clear();  
-                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');  
+                        std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                         std::cout << "Invalid input. Please enter numbers only." << std::endl;
-                        continue;  
+                        continue;
                     }
-                    std::cout << "Input received: " << input1 << ", " << input2 << std::endl; 
-                    if (game.play(input1, input2)) {
-                        validMove = true;
+                    if (input1 >= 0 && input1 < game.size && input2 >= 0 && input2 < game.size) {
+                        if (game.play(input1, input2)) {
+                            validMove = true;
+                        } else {
+                            std::cout << "Invalid move. This spot is already taken. Please try again." << std::endl;
+                        }
                     } else {
-                        std::cout << "Invalid move. Please try again." << std::endl;
+                        std::cout << "Input out of bounds. Please try again." << std::endl;
                     }
                 }
-            } else {  // AI's turn
+            }
+            else {  // AI's turn
                 validMove = false;
                 while (!validMove) {
                     input1 = std::rand() % 3;  
