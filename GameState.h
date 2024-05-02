@@ -31,6 +31,13 @@ std::string red(std::string letter) {
     return result;
 }
 
+bool withinBounds(int x, int y) {
+    if ((x >= 0 && x <= 2) && (y >= 0 && y <= 2)) {
+        return true;
+    }
+    return false;
+
+}
 
 struct Vec{
     int x;
@@ -632,6 +639,10 @@ struct GameState{
     }
 
     bool play(int x, int y){
+        if (!withinBounds(x, y)) {
+            return false;
+        }
+        
         if (grid[x][y] != -1){
             return false;
         }
